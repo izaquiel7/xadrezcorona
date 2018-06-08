@@ -80,6 +80,8 @@ function but1PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 	tabuleiro[1][1] = "x"
+
+	tabuleiro:checarVencedor("x")
 	end
 
 end
@@ -98,6 +100,8 @@ function but2PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[1][2] = "x"
+
+		tabuleiro:checarVencedor("x")
 	end
 
 end
@@ -115,6 +119,8 @@ function but3PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[1][3] = "x"
+
+		tabuleiro:checarVencedor("x")
 	end
 end
 
@@ -132,6 +138,8 @@ function but4PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[2][1] = "x"
+
+		tabuleiro:checarVencedor("x")
 
 	end
 end
@@ -151,6 +159,7 @@ function but5PrintX( event )
 
 		tabuleiro[2][2] = "x"
 
+		tabuleiro:checarVencedor("x")
 	end
 end
 
@@ -168,6 +177,8 @@ function but6PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[2][3] = "x"
+
+		tabuleiro:checarVencedor("x")
 	end
 end
 
@@ -185,6 +196,8 @@ function but7PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[3][1] = "x"
+
+		tabuleiro:checarVencedor("x")
 	end
 end
 
@@ -202,6 +215,8 @@ function but8PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[3][2] = "x"
+
+		tabuleiro:checarVencedor("x")
 	end
 end
 
@@ -219,6 +234,8 @@ function but9PrintX( event )
 		y:setStrokeColor(1,0,0)
 
 		tabuleiro[3][3] = "x"
+
+		tabuleiro:checarVencedor("x")
 	end
 end
 
@@ -233,6 +250,8 @@ function but1PrintO( event )
 		bola:setStrokeColor(0,0,1)
 
 		tabuleiro[1][1] ="o"
+
+		tabuleiro:checarVencedor("o")
 	end
 end
 
@@ -320,7 +339,7 @@ function tabuleiro:iniciarJogada()
 				but8:addEventListener("touch", but8PrintX)
 				but9:addEventListener("touch", but9PrintX)
 
-				tabuleiro:checarVencedor("x")
+				
 				nJogadas = nJogadas + 1
 			end
 
@@ -333,7 +352,6 @@ function tabuleiro:iniciarJogada()
 
 			but1:addEventListener("touch", but1PrintO)
 
-			tabuleiro:checarVencedor("o")
 
 			nJogadas = nJogadas + 1
 
