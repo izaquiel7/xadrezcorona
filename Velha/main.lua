@@ -35,31 +35,31 @@ function tabuleiro:desenharVelha()
 	local coluna2 = display.newLine(210, 50, 210, 350)
 
 	but1 = display.newRect(50, 100 ,90, 90)
-	but1:setFillColor(1,1,1,0.1)
+	but1:setFillColor(0.1,0.1,0.1,0.1)
 
 	but2 = display.newRect(155, 100 ,95, 90)
-	but2:setFillColor(1,1,0, 0.1)
+	but2:setFillColor(0.1,0.1,0.1, 0.1)
 
 	but3 = display.newRect(260, 100 ,90, 90)
-	but3:setFillColor(1,1,1,0.1)
+	but3:setFillColor(0.1,0.1,0.1,0.1)
 
 	but4 = display.newRect(50, 200 ,90, 90)
-	but4:setFillColor(1,1,0, 0.1)
+	but4:setFillColor(0.1,0.1,0, 0.1)
 
 	but5 = display.newRect(155, 200 ,95, 90)
-	but5:setFillColor(1,1,1,0.1)
+	but5:setFillColor(0.1,0.1,0.1,0.1)
 
 	but6 = display.newRect(260, 200 ,90, 90)
-	but6:setFillColor(1,1,0,0.1)
+	but6:setFillColor(0.1,0.1,0, 0.1)
 
 	but7 = display.newRect(50, 300 ,90, 90)
-	but7:setFillColor(1,1,1,0.1)
+	but7:setFillColor(0.1,0.1,0, 0.1)
 
 	but8 = display.newRect(155, 300 ,95, 90)
-	but8:setFillColor(1,1,0,0.1)
+	but8:setFillColor(0.1,0.1,0, 0.1)
 
 	but9 = display.newRect(260, 300 ,90, 90)
-	but9:setFillColor(1,1,1,0.1)
+	but9:setFillColor(0.1,0.1,0, 0.1)
 end
 
 
@@ -389,6 +389,36 @@ function tabuleiro:validarJogada(a , b)
 	return valida
 end
 
+--- Verifica se o indice do tabuleiro não é vazio
+
+function tabuleiro:checarIndice()
+	for i=1,3 do
+		for j=1,3 do
+			if tabuleiro[i][j] == " " then
+				return false
+			end
+		end
+	end
+
+	return true
+end
+
+--- verifica se empatou
+
+function tabuleiro:checarEmpate()
+	if nJogadas == 10 and tabuleiro:checarIndice() then
+		local options = {
+		text = "Fim de jogo, Empatou!",
+		x = 155,
+		y = 380}
+
+
+		display.newText(options)
+
+		tabuleiro:novojogo()
+	end
+end
+
 ---Verifica o vencedor
 function tabuleiro:checarVencedor(var)
 
@@ -401,38 +431,87 @@ function tabuleiro:checarVencedor(var)
 
 
 	if tabuleiro[1][1] == var and  tabuleiro[1][2] == var and tabuleiro[1][3] == var then
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
 
 	elseif tabuleiro[2][1] == var and  tabuleiro[2][2] == var and tabuleiro[2][3] == var then
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
 
 	elseif tabuleiro[3][1] == var and  tabuleiro[3][2] == var and tabuleiro[3][3] == var then
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
 
 	---checa colunas
 	elseif tabuleiro[1][1] == var and  tabuleiro[2][1] == var and tabuleiro[3][1] == var then
+
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
 
 	elseif tabuleiro[1][2] == var and  tabuleiro[2][2] == var and tabuleiro[3][2] == var then
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
 
 	elseif tabuleiro[1][3] == var and  tabuleiro[2][3] == var and tabuleiro[3][3] == var then
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
 
 	---checa diagonais
 	elseif tabuleiro[1][1] == var and  tabuleiro[2][2] == var and tabuleiro[3][3] == var then
+	--	tabuleiro:novojogo()
 	texto = display.newText(options)
+	
 	elseif tabuleiro[1][3] == var and  tabuleiro[2][2] == var and tabuleiro[3][1] == var then
+	--	tabuleiro:novojogo()		
 	texto = display.newText(options)
-	--tabuleiro:novojogo()
 	end
+
+	tabuleiro:checarEmpate()
+end
+
+function tabuleiro:novojogo()
+	tabuleiro:removerBut()
+	tabuleiro:iniciar()
+	tabuleiro:desenharVelha()
+	nJogadas = 1
+end
+
+function tabuleiro:removerBut()
+	but1:removeSelf()
+	but1 = nil
+
+	but2:removeSelf()
+	but2 = nil
+
+	but3:removeSelf()
+	but3 = nil
+
+	but4:removeSelf()
+	but4 = nil
+
+	but5:removeSelf()
+	but5 = nil
+
+	but6:removeSelf()
+	but6 = nil
+
+	but7:removeSelf()
+	but7 = nil
+
+	but8:removeSelf()
+	but8 = nil
+
+	but9:removeSelf()
+	but9 = nil
 end
 
 nJogadas = 1
+primav = true
 
 function tabuleiro:iniciarJogada()
+primav = false
 	while nJogadas <= 9 do
-		if nJogadas % 2 == 0 then 
+		
 			but1:addEventListener("touch", desenharBut1)
 			but2:addEventListener("touch", desenharBut2)
 			but3:addEventListener("touch", desenharBut3)
@@ -444,18 +523,15 @@ function tabuleiro:iniciarJogada()
 			but9:addEventListener("touch", desenharBut9)
 
 			nJogadas = nJogadas + 1
-
-		else
-
-
-		nJogadas = nJogadas + 1
-
-		end
 	end
 end
 
+if primav then
+
 tabuleiro:desenharVelha()
 tabuleiro:iniciarJogada()
+
+end
 
 options = {
 text = "Jogo da velha:",
